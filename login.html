@@ -11,8 +11,7 @@
   <link href="css/styles.css" rel="stylesheet">
 
   <meta name="google-signin-scope" content="profile email" />
-  <meta name="google-signin-client_id"
-    content="1019223786709-evsio6865hmmiv0qocj1p7nktdp40dgi.apps.googleusercontent.com" />
+  <meta name="google-signin-client_id" content="1019223786709-evsio6865hmmiv0qocj1p7nktdp40dgi.apps.googleusercontent.com">
 
 
 
@@ -39,8 +38,7 @@
         <input type="password" class="form-control" id="password" placeholder="Contraseña">
         <button class="btn btn-primary" type="button" id="regBtn">Ingresar</button>
       </div>
-      <div id="botongoogle" class="g-signin2 mx-sm-4" data-onsuccess="onSignIn" data-theme="dark">
-      </div>
+      <div id="my-signin2"></div>
     </div>
 
 
@@ -62,7 +60,27 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   <script src="js/login.js"></script>
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+  
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 
 </html>
