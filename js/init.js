@@ -49,27 +49,33 @@ if (!localStorage.getItem("user")){
   window.location = "login.html"
 }
 
-document.getElementById("navbarNav").innerHTML = `<ul class="navbar-nav w-100 justify-content-between">
-<li class="nav-item">
-  <a class="nav-link active" href="index.html">Inicio</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="categories.html">Categorías</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="sell.html">Vender</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link">${localStorage.getItem("user")}</a>
-</li>
-<li class="nav-item">
-  <button class="btn btn-primary" type="button" id="clrBtn">Cerrar sesion</button>
-</li>
+
+document.getElementById("navbarNav").innerHTML = `
+<ul class="navbar-nav w-100 justify-content-between">
+  <li class="nav-item">
+    <a class="nav-link active" href="index.html">Inicio</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="categories.html">Categorías</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="sell.html">Vender</a>
+  </li>
+  <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ${localStorage.getItem("user")}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="cart.html">Mi Carrito</a></li>
+            <li><a class="dropdown-item" href="my-profile.html">Mi Perfil</a></li>
+            <li onclick="clearUser()"><a class="dropdown-item" href="#">Cerrar sesion</a></li>
+          </ul>
+        </li>
 </ul>`
 
 
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("clrBtn").addEventListener("click", () => {
     clearUser();
   })
-})
+})*/
