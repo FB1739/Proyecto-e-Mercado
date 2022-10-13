@@ -56,5 +56,6 @@ function signOut() {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("regBtn").addEventListener("click", () => {
         login();
+        localStorage.setItem("user_id","25801")
     })
 })

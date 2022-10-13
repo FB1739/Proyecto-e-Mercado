@@ -18,7 +18,7 @@ function myFunction() {
 
 
   
-    // Loop through all list items, and hide those who don't match the search query
+    // Loop a traves de todos los items, esconde lo que no cumplen
     for (i = 0; i < h4.length; i++) {
       a = h4[i].innerText;
       b = p[i].innerText;
