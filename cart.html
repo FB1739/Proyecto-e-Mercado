@@ -56,13 +56,43 @@
             <tbody id="contenido tabla">
             </tbody>
           </table>
-          <div>
+          <hr>
+          <div id="Tipo envios" class="p-2">
             <h2 class="fs-4 p-2">Tipo de envio</h2>
-            <input type="radio" name="Premium" id="premium" >
+            <div class="custom-control custom-radio">
+              <input type="radio" name="tipoEnvio" id="Premium">
+              <label class="custom-control-label" for="Premium">Premium 2 a 5 días (15%)</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" name="tipoEnvio" id="Express">
+              <label class="custom-control-label" for="Express">Express 5 a 8 días (7%)</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" name="tipoEnvio" id="Standard">
+              <label class="custom-control-label" for="Standard">Standard 12 a 15 días (5%)</label>
+            </div>
+          </div>
+          <div>
+            <h2 class="fs-4 p-2">Dirección de envio</h2>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="nombreCalle">Calle</label>
+                <input type="text" class="form-control" id="nombreCalle" value="" name="nombreCalle">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="Numero">Numero</label>
+                <input type="text" class="form-control" id="Numero" value="" name="Numero">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="esquinaNombre">Calle</label>
+                <input type="text" class="form-control" id="esquinaNombre" value="" name="esquinaNombre">
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </main>
   <footer class="text-muted">

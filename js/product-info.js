@@ -7,7 +7,27 @@ function setProdID(id) {
 }
 
 function comprarProducto() {
-
+    let userid = localStorage.getItem("user_id")
+    let resumido = {}
+    resumido.id = prodDict.id;
+    resumido.name = prodDict.name
+    resumido.count = "1"
+    resumido.unitCost = prodDict.cost
+    resumido.currency = prodDict.currency
+    resumido.image = prodDict.images[0]
+    //console.log(resumido)
+    if ((!localStorage.getItem("cart_"+userid))) {
+        let strProducto = []
+        strProducto.push(resumido)
+        strProducto = JSON.stringify(strProducto)
+        localStorage.setItem("cart_"+userid,strProducto)
+    }
+    else {
+        let cartProd = parse(localStorage.getItem("cart_"+userid))
+        cartProd.push(resumido)
+        localStorage.setItem("cart_"+userid,JSON.stringify(cartProd))
+    }
+    window.location = "cart.html"
 }
 
 function agregar_comentario(comentario, puntuacion) {
