@@ -1,5 +1,6 @@
 let compras = []
 
+//showCategoriesList() pero para tablas
 function showTable(){
     let tabtoappend = ""
     for (let i = 0 ; i < compras.length; i++){
@@ -20,17 +21,20 @@ function showTable(){
     document.getElementById("contenido tabla").innerHTML += tabtoappend;
 }
 
+//funcion para que me multiplique la cantidad de articulos por el precio
 function CantPorPrecio(cantidad,nombre,currency,costo){
     let can = parseInt(costo)*parseInt(cantidad)
     document.getElementById("subtotal_"+nombre).innerText = currency+" "+can
-    console.log("subtotal_"+nombre)
+    //console.log("subtotal_"+nombre)
 }
 
 document.addEventListener("DOMContentLoaded", function(){
     //no mucho misterio aca, repetimos los que hicimos anteriormente en las otras entregas
     getJSONData(CART_INFO_URL + localStorage.getItem("user_id") + ".json").then(function (resultObj) {//CART_INFO_URL en init.js
         if (resultObj.status === "ok") {
-            compras = resultObj.data.articles;
+            let array_en_string = resultObj.data.articles.
+            localStorage.setItem("items_de_"+localStorage.getItem("user_id"),array_en_string)
+            compras = resultObj.data.articles
             console.log(compras)
             showTable()
         }

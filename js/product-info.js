@@ -6,6 +6,10 @@ function setProdID(id) {
     window.location = "product-info.html"
 }
 
+function comprarProducto() {
+
+}
+
 function agregar_comentario(comentario, puntuacion) {
     let comToAppend = "";
     let estrellas = "";
@@ -59,7 +63,15 @@ function showCategoriesList() {
     //tremendamente agarrado con alambres, seria ideal hacer otro contenedor para los comentarios pero bueno
     htmlContentToAppend += `
                     <br>
-                    <h1>${prodDict.name}</h1><br>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <h1>${prodDict.name}</h1>
+                        </div>
+                        <div class="col-md-6 mb-3 position-relative">
+                            <button class="btn btn-success position-absolute top-0 end-0" type="button" id="boton de compra" onClick="comprarProducto()">Comprar</button>
+                        </div>
+                    </div>
+                    <br>
                     <hr>
                     <h8><strong>Precio</strong></h8>
                     <p>${prodDict.currency} ${prodDict.cost}</p><br>
