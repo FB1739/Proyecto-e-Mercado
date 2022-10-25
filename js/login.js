@@ -56,6 +56,6 @@ function signOut() {
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("regBtn").addEventListener("click", () => {
         login();
-        localStorage.setItem("user_id","25801")
+        localStorage.setItem("user_id","25801")//aca se cambia con el id que trae de la base de datos cuando esta este creada
     })
 })

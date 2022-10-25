@@ -6,28 +6,45 @@ function setProdID(id) {
     window.location = "product-info.html"
 }
 
+var sonIgualesJson = (obj1, obj2) => {
+    keys1 = Object.keys(obj1);
+    keys2 = Object.keys(obj2);
+
+    return keys1.length === keys2.length && obj1["id"] == obj2["id"];
+}
+
 function comprarProducto() {
     let userid = localStorage.getItem("user_id")
     let resumido = {}
     resumido.id = prodDict.id;
     resumido.name = prodDict.name
-    resumido.count = "1"
+    resumido.count = 1
     resumido.unitCost = prodDict.cost
     resumido.currency = prodDict.currency
     resumido.image = prodDict.images[0]
     //console.log(resumido)
-    if ((!localStorage.getItem("cart_"+userid))) {
+    if ((!localStorage.getItem("cart_" + userid))) {
         let strProducto = []
         strProducto.push(resumido)
         strProducto = JSON.stringify(strProducto)
-        localStorage.setItem("cart_"+userid,strProducto)
+        localStorage.setItem("cart_" + userid, strProducto)
     }
     else {
-        let cartProd = localStorage.getItem("cart_"+userid)
-        cartProd = JSON.parse(cartProd)
-        cartProd.push(resumido)
+        let listaCompras = eval(localStorage.getItem("cart_" + userid))
+        var iguales = false
+        for (let i = 0; i < listaCompras.length; i++) {
+            iguales = sonIgualesJson(resumido, listaCompras[i])
+            if (iguales) {
+                listaCompras[i].count += 1
+                break;
+            }
+        }
+        if (!iguales) {
+            listaCompras.push(resumido)
+        }
+
         //console.log(cartProd)
-        localStorage.setItem("cart_"+userid,JSON.stringify(cartProd))
+        localStorage.setItem("cart_" + userid, JSON.stringify(listaCompras))
     }
     window.location = "cart.html"
 }
@@ -43,7 +60,7 @@ function agregar_comentario(comentario, puntuacion) {
                                                     minute: "numeric",
                                                     second: "numeric"
                                                     });*/
-    
+
     for (let i = 0; i < 5; i++) {
         let nro_estrellas = puntuacion - 1;
         if (i <= nro_estrellas) {
@@ -69,7 +86,7 @@ function agregar_comentario(comentario, puntuacion) {
                         </div>
                     </div>
                 </div>
-        `   
+        `
 
     document.getElementById("cat-list-container").innerHTML += comToAppend;
 
@@ -106,16 +123,16 @@ function showCategoriesList() {
                     
                 `
     document.getElementById("contenedor-ppal").innerHTML += htmlContentToAppend;
-    
+
     //se hace un for para integrar las imagenes y con el inner se pone en el lugar correspondiente
     for (let i = 0; i < imagenes.length; i++) {
         imagen = imagenes[i]
 
-        if (i == 0){
-        document.getElementById("carrusel-indicadores").innerHTML += `
-        <button type="button" data-bs-target="#contenedor-imagenes" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i+1}"></button>
+        if (i == 0) {
+            document.getElementById("carrusel-indicadores").innerHTML += `
+        <button type="button" data-bs-target="#contenedor-imagenes" data-bs-slide-to="${i}" class="active" aria-current="true" aria-label="Slide ${i + 1}"></button>
         `
-        document.getElementById("carrusel-inner").innerHTML += `
+            document.getElementById("carrusel-inner").innerHTML += `
         <div class="carousel-item active">
             <img src=${imagen} class="d-block w-100" alt=${prodDict.name}>
             <div class="carousel-caption d-none d-md-block">
@@ -123,15 +140,15 @@ function showCategoriesList() {
             </div>
         </div>
         `
-    
-    
-    
+
+
+
         }
         else {
-            document.getElementById("carrusel-indicadores").innerHTML += `<button type="button" data-bs-target="#contenedor-imagenes" data-bs-slide-to="${i}" aria-label="Slide ${i+1}"></button>`
+            document.getElementById("carrusel-indicadores").innerHTML += `<button type="button" data-bs-target="#contenedor-imagenes" data-bs-slide-to="${i}" aria-label="Slide ${i + 1}"></button>`
 
 
-            document.getElementById("carrusel-inner").innerHTML +=  `
+            document.getElementById("carrusel-inner").innerHTML += `
             <div class="carousel-item">
             <img src=${imagen} class="d-block w-100" alt=${prodDict.name}>
                 <div class="carousel-caption d-none d-md-block">
@@ -142,15 +159,15 @@ function showCategoriesList() {
 
     }
 
-    
+
 
     //console.log(commArr)
     //misma idea que con las imagenes
-    for (let i = 0; i < commArr.length; i++){
+    for (let i = 0; i < commArr.length; i++) {
         let comentario = commArr[i]
         let estrellas = "";
 
-        for (let i = 0; i < 5; i++){
+        for (let i = 0; i < 5; i++) {
             let nro_estrellas = comentario.score - 1;
             if (i <= nro_estrellas) {
                 estrellas += `
@@ -177,13 +194,13 @@ function showCategoriesList() {
                     </div>
                 </div>
         `
-        
+
     }
-    
+
     document.getElementById("cat-list-container").innerHTML += comContentToAppend;
 
 
-    for (let i = 0; i < relArr.length; i++){
+    for (let i = 0; i < relArr.length; i++) {
         let relaciones = relArr[i];
 
         relContentToAppend += `
@@ -193,12 +210,12 @@ function showCategoriesList() {
                         <h5 class="card-title">${relaciones.name}</h5>
                     </div>
             </div>`
-        
+
     }
-    
+
     document.getElementById("contenedor-relaciones").innerHTML += relContentToAppend;
-    
-    
+
+
 }
 
 
@@ -220,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
     document.getElementById("envio").addEventListener("click", function () {
         comentario = document.getElementById("Description").value;
         puntuacion = document.getElementById("puntuacion").value;
-        if (comentario != "" && (puntuacion != "" || puntiacion != "Seleccionar puntuación")){
+        if (comentario != "" && (puntuacion != "" || puntiacion != "Seleccionar puntuación")) {
             agregar_comentario(comentario, puntuacion);
             document.getElementById("Description").value = "";
             document.getElementById("puntuacion").value = "Seleccionar puntuación";

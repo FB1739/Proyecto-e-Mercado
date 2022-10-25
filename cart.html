@@ -38,73 +38,200 @@
     </div>
   </nav>
   <main>
-    <div class="container">
-      <h1 class="text-center fs-2 p-3">Carrito de compras</h1>
-      <div class="row justify-content-md-center">
-        <div class="col-md-8 order-md-1">
-          <h2 class="fs-4 p-2">Artículos a comprar</h2>
-          <table class="table table-hover" id="tabloide">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Costo</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Subtotal</th>
-              </tr>
-            </thead>
-            <tbody id="contenido tabla">
-            </tbody>
-          </table>
-          <hr>
-          <div id="Tipo envios" class="p-2">
-            <h2 class="fs-4 p-2">Tipo de envio</h2>
-            <div class="custom-control custom-radio">
-              <input type="radio" name="tipoEnvio" id="Premium">
-              <label class="custom-control-label" for="Premium">Premium 2 a 5 días (15%)</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" name="tipoEnvio" id="Express">
-              <label class="custom-control-label" for="Express">Express 5 a 8 días (7%)</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" name="tipoEnvio" id="Standard">
-              <label class="custom-control-label" for="Standard">Standard 12 a 15 días (5%)</label>
-            </div>
-          </div>
-          <div>
-            <h2 class="fs-4 p-2">Dirección de envio</h2>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="nombreCalle">Calle</label>
-                <input type="text" class="form-control" id="nombreCalle" value="" name="nombreCalle">
+    <form action="#" method="get" class="row mt-4 needs-validation" novalidate>
+      <div class="container">
+        <h1 class="text-center fs-2 p-3">Carrito de compras</h1>
+        <div class="row justify-content-md-center">
+          <div class="col-md-8 order-md-1">
+            <h2 class="fs-4 p-2">Artículos a comprar</h2>
+            <table class="table table-hover" id="tabloide">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Costo</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Subtotal</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody id="contenido tabla">
+              </tbody>
+            </table>
+            <hr>
+            <div id="Tipo envios" class="p-2" onChange="calcular_totales()">
+              <h2 class="fs-3 p-2">Tipo de envio</h2>
+              <div class="custom-control custom-radio">
+                <input type="radio" name="tipoEnvio" id="Premium" value="15" checked required>
+                <label class="custom-control-label" for="Premium">Premium 2 a 5 días (15%)</label>
               </div>
-              <div class="col-md-6 mb-3">
-                <label for="Numero">Numero</label>
-                <input type="text" class="form-control" id="Numero" value="" name="Numero">
+              <div class="custom-control custom-radio">
+                <input type="radio" name="tipoEnvio" id="Express" value="7" required>
+                <label class="custom-control-label" for="Express">Express 5 a 8 días (7%)</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" name="tipoEnvio" id="Standard" value="5" required>
+                <label class="custom-control-label" for="Standard">Standard 12 a 15 días (5%)</label>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="esquinaNombre">Esquina</label>
-                <input type="text" class="form-control" id="esquinaNombre" value="" name="esquinaNombre">
+            <div>
+              <h2 class="fs-3 p-2">Dirección de envio</h2>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="nombreCalle">Calle</label>
+                  <input type="text" class="form-control" id="nombreCalle"  name="nombreCalle" required>
+                  <div class="invalid-feedback">
+                    Debe ingresar una calle válida
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="Numero">Numero</label>
+                  <input type="number" class="form-control" id="Numero"  name="Numero" required>
+                  <div class="invalid-feedback">
+                    Debe ingresar un numero valido
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div>
-            <h2 class="fs-4 p-2">Costos</h2>
-            <div class="list-group">
-              <div class="list-group-item">
-                <div class="row">
-                  Subtotal
-                  Costo unitario del producto por cantidad
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="esquinaNombre">Esquina</label>
+                  <input type="text" class="form-control" id="esquinaNombre"  name="esquinaNombre" required>
+                  <div class="invalid-feedback">
+                    Debe ingresar una esquina válida
+                  </div>
                 </div>
               </div>
             </div>
+            <hr>
+            <div>
+              <h2 class="fs-3 p-2">Costos</h2>
+              <div class="list-group">
+                <div class="list-group-item text-muted">
+                  <div class="row">
+                    <div class="d-flex fs-5">
+                      <h4>Subtotal</h4>
+                      <h4 class="ms-auto" id="Subtotal">subtotal</h4>
+                    </div>
+                    <p class="fs-6">Costo unitario del producto por cantidad</p>
+                  </div>
+                </div>
+                <div class="list-group-item text-muted">
+                  <div class="row">
+                    <div class="d-flex fs-5">
+                      <h4>Costo de envio</h4>
+                      <h4 class="text-muted ms-auto" id="Costo">costo envio</h4>
+                    </div>
+                    <p class="fs-6">Según tipo de envio</p>
+                  </div>
+                </div>
+                <div class="list-group-item text-muted">
+                  <div class="row">
+                    <div class="d-flex fs-5">
+                      <h4>Total ($)</h4>
+                      <h4 class="text-muted ms-auto" id="Total">total</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div>
+              <h2 class="fs-3 py-2">Forma de pago</h2>
+              <div class="col-sm-12">
+                <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalTerminos"
+                  id="botonTerminos" required>
+                  Forma de pago</button>
+                <div class="invalid-feedback">
+                  Debe elegir una forma de pago.
+                </div>
+              </div>
+              <br>
+              <div class="d-flex">
+                <button class="btn btn-primary w-100" type="submit" id="btnSubmit" onClick="">Finalizar Compra</button>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
-    </div>
+      <div class="modal fade" id="modalTerminos" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <!-- TITULO MODAL-->
+            <div class="modal-header">
+              <h1 class="modal-title fs-5">Forma de pago.</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- CUERPO MODAL-->
+            <div class="modal-body">
+              <div class="custom-control custom-radio">
+                <input type="radio" name="tipoPago" id="credito" >
+                <label class="custom-control-label" for="credito">Tarjeta de crédito</label>
+                <hr>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="nro_tarjeta">Numero de tarjeta</label>
+                    <input type="text" class="form-control" id="nro_tarjeta" name="nro_tarjeta">
+                    <div class="invalid-feedback">
+                      Debe ingresar una numero de tarjeta válido
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="codigo_seg">Código de seguridad</label>
+                    <input type="number" class="form-control" id="codigo_seg" name="codigo_seg">
+                    <div class="invalid-feedback">
+                      Debe ingresar un código de seguridad valido
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="vencimiento">Vencimiento (MM/AA)</label>
+                    <input type="text" class="form-control" id="vencimiento" name="vencimiento">
+                    <div class="invalid-feedback">
+                      Debe ingresar una vencimiento válido
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="custom-control custom-radio">
+                <input type="radio" name="tipoPago" id="deposito">
+                <label class="custom-control-label" for="deposito">Depósito bancario</label>
+                <hr>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="nro_cuenta">Número de cuenta</label>
+                    <input type="text" class="form-control" id="nro_cuenta" name="nro_cuenta" required>
+                    <div class="invalid-feedback">
+                      Debe ingresar una número de cuenta válido
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOOTER MODAL-->
+            <div class="modal-footer">
+              <div class="form-check">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTerminos"
+                id="botonTerminos2">
+                Cerrar</button>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+
+      </div>
+      </div>
+      </div>
+      </div>
+    </form>
   </main>
   <footer class="text-muted">
     <div class="container">
