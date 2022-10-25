@@ -23,8 +23,10 @@ function comprarProducto() {
         localStorage.setItem("cart_"+userid,strProducto)
     }
     else {
-        let cartProd = parse(localStorage.getItem("cart_"+userid))
+        let cartProd = localStorage.getItem("cart_"+userid)
+        cartProd = JSON.parse(cartProd)
         cartProd.push(resumido)
+        //console.log(cartProd)
         localStorage.setItem("cart_"+userid,JSON.stringify(cartProd))
     }
     window.location = "cart.html"
