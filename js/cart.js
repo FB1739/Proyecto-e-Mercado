@@ -11,6 +11,7 @@ var sonIgualesJson = (obj1,obj2)=>{
     return keys1.length === keys2.length && obj1["id"] == obj2["id"];
 }
 
+
 //me gusta que las imagenes redirigan a la pagina
 function setProdID(id) {
     localStorage.setItem("ProdID", id);
@@ -30,7 +31,7 @@ function showTable(){
             </th>
             <td>${compra.name}</td>
             <td>${compra.currency} ${compra.unitCost}</td>
-            <td class="w-25"><input type="text" class="form-control w-25" id="cant_${compra.name}_${compra.unitCost}" value="${compra.count}" onKeyup="CantPorPrecio(this.value,'${compra.name}','${compra.currency}','${compra.unitCost}')" required></td>
+            <td class="w-25"><input type="number" class="form-control w-50" id="cant_${compra.name}_${compra.unitCost}" value="${compra.count}" onChange="CantPorPrecio(this.value,'${compra.name}','${compra.currency}','${compra.unitCost}')" required></td>
             <td><b id="subtotal_${compra.name}">${compra.currency} ${compra.unitCost * compra.count}</b></td>
         </tr>
         `
@@ -151,6 +152,9 @@ document.addEventListener("DOMContentLoaded", function(){
         document.getElementById("codigo_seg").required = true;
         document.getElementById("vencimiento").required = true;
     });
+
+
+
 });
 
 (() => {

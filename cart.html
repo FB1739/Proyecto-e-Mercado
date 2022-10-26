@@ -38,7 +38,7 @@
     </div>
   </nav>
   <main>
-    <form action="#" method="get" class="row mt-4 needs-validation" novalidate>
+    <form action="#" method="get" class="row mt-4 needs-validation" novalidate id="formulete">
       <div class="container">
         <h1 class="text-center fs-2 p-3">Carrito de compras</h1>
         <div class="row justify-content-md-center">
@@ -79,14 +79,14 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="nombreCalle">Calle</label>
-                  <input type="text" class="form-control" id="nombreCalle"  name="nombreCalle" required>
+                  <input type="text" class="form-control" id="nombreCalle" name="nombreCalle" required>
                   <div class="invalid-feedback">
                     Debe ingresar una calle válida
                   </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="Numero">Numero</label>
-                  <input type="number" class="form-control" id="Numero"  name="Numero" required>
+                  <input type="number" class="form-control" id="Numero" name="Numero" required>
                   <div class="invalid-feedback">
                     Debe ingresar un numero valido
                   </div>
@@ -95,7 +95,7 @@
               <div class="row">
                 <div class="col-md-6 mb-3">
                   <label for="esquinaNombre">Esquina</label>
-                  <input type="text" class="form-control" id="esquinaNombre"  name="esquinaNombre" required>
+                  <input type="text" class="form-control" id="esquinaNombre" name="esquinaNombre" required>
                   <div class="invalid-feedback">
                     Debe ingresar una esquina válida
                   </div>
@@ -154,83 +154,6 @@
           </div>
         </div>
       </div>
-      <div class="modal fade" id="modalTerminos" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-
-            <!-- TITULO MODAL-->
-            <div class="modal-header">
-              <h1 class="modal-title fs-5">Forma de pago.</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <!-- CUERPO MODAL-->
-            <div class="modal-body">
-              <div class="custom-control custom-radio">
-                <input type="radio" name="tipoPago" id="credito" >
-                <label class="custom-control-label" for="credito">Tarjeta de crédito</label>
-                <hr>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="nro_tarjeta">Numero de tarjeta</label>
-                    <input type="text" class="form-control" id="nro_tarjeta" name="nro_tarjeta">
-                    <div class="invalid-feedback">
-                      Debe ingresar una numero de tarjeta válido
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-3">
-                    <label for="codigo_seg">Código de seguridad</label>
-                    <input type="number" class="form-control" id="codigo_seg" name="codigo_seg">
-                    <div class="invalid-feedback">
-                      Debe ingresar un código de seguridad valido
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="vencimiento">Vencimiento (MM/AA)</label>
-                    <input type="text" class="form-control" id="vencimiento" name="vencimiento">
-                    <div class="invalid-feedback">
-                      Debe ingresar una vencimiento válido
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr>
-              <div class="custom-control custom-radio">
-                <input type="radio" name="tipoPago" id="deposito">
-                <label class="custom-control-label" for="deposito">Depósito bancario</label>
-                <hr>
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label for="nro_cuenta">Número de cuenta</label>
-                    <input type="text" class="form-control" id="nro_cuenta" name="nro_cuenta" required>
-                    <div class="invalid-feedback">
-                      Debe ingresar una número de cuenta válido
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- FOOTER MODAL-->
-            <div class="modal-footer">
-              <div class="form-check">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTerminos"
-                id="botonTerminos2">
-                Cerrar</button>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-
-      </div>
-      </div>
-      </div>
-      </div>
     </form>
   </main>
   <footer class="text-muted">
@@ -243,6 +166,82 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
+  <!-- Empieza el modal -->
+  <div class="modal fade" id="modalTerminos" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- TITULO MODAL-->
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Formas de pago.</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <!-- CUERPO MODAL-->
+        <div class="modal-body form-control needs-validation">
+          <div class="custom-radio">
+            <input type="radio" name="tipoPago" id="credito" class="form-check-input" >
+            <label class="form-check-label" for="credito">Tarjeta de crédito</label>
+            <hr>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="nro_tarjeta">Numero de tarjeta</label>
+                <input type="text" class="form-control" id="nro_tarjeta" name="nro_tarjeta">
+                <div class="invalid-feedback">
+                  Debe ingresar una numero de tarjeta válido
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="codigo_seg">Código de seguridad</label>
+                <input type="number" class="form-control" id="codigo_seg" name="codigo_seg">
+                <div class="invalid-feedback">
+                  Debe ingresar un código de seguridad valido
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="vencimiento">Vencimiento (MM/AA)</label>
+                <input type="text" class="form-control" id="vencimiento" name="vencimiento">
+                <div class="invalid-feedback">
+                  Debe ingresar una vencimiento válido
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <div class="custom-control custom-radio">
+            <input type="radio" name="tipoPago" id="deposito" class="form-check-input">
+            <label class="form-check-label" for="deposito">Depósito bancario</label>
+            <hr>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="nro_cuenta">Número de cuenta</label>
+                <input type="text" class="form-control" id="nro_cuenta" name="nro_cuenta" >
+                <div class="invalid-feedback">
+                  Debe ingresar una número de cuenta válido
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOOTER MODAL-->
+        <div class="modal-footer">
+          <div class="form-check">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTerminos"
+            id="botonTerminos2">
+            Cerrar</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
   <div id="spinner-wrapper">
     <div class="lds-ring">
       <div></div>
