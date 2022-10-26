@@ -85,7 +85,38 @@ function calcular_totales() {
     document.getElementById("Total").innerText = "USD "+total
 }
 
+function modal_valido() {
+    var forma_pago = document.getElementById("seleccion")
+    var credito = document.getElementById("credito")
+    var deposito = document.getElementById("deposito")
+    var nro_cuenta = document.getElementById("nro_cuenta")
+    var nro_tarjeta = document.getElementById("nro_tarjeta")
+    var codigo_seg = document.getElementById("codigo_seg")
+    var vencimiento = document.getElementById("vencimiento")
+    /*console.log(credito.checked)
+    console.log(deposito.checked)
+    console.log(nro_tarjeta.value)
+    console.log(codigo_seg.value)
+    console.log(vencimiento.value)*/
+    let hola = false;
+    if (credito.checked & !(vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")) {
+        hola = true
+        console.log("paso por if credito checked")
+        forma_pago.classList.add("is-valid")
 
+    }
+    if (deposito.checked & nro_cuenta.value != "") {        
+        hola = true
+        console.log("paso por if deposito checked")
+        forma_pago.classList.add("is-valid")
+    }
+    if (!hola) {
+        forma_pago.classList.add("is-invalid")
+    }
+    console.log("hola:")
+    console.log(hola)
+    return hola
+}
 
 
 
@@ -134,28 +165,39 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     document.getElementById("credito").addEventListener("click", function () {
         document.getElementById("nro_cuenta").disabled = true;
+        document.getElementById("nro_cuenta").value = "";
+        document.getElementById("nro_cuenta").required = false;
+
         document.getElementById("nro_tarjeta").disabled = false;
         document.getElementById("codigo_seg").disabled = false;
         document.getElementById("vencimiento").disabled = false;
-        document.getElementById("nro_cuenta").required = true;
-        document.getElementById("nro_tarjeta").required = false;
-        document.getElementById("codigo_seg").required = false;
-        document.getElementById("vencimiento").required = false;
-    });
-    document.getElementById("deposito").addEventListener("click", function () {
-        document.getElementById("nro_cuenta").disabled = false;
-        document.getElementById("nro_tarjeta").disabled = true;
-        document.getElementById("codigo_seg").disabled = true;
-        document.getElementById("vencimiento").disabled = true;
-        document.getElementById("nro_cuenta").required = false;
         document.getElementById("nro_tarjeta").required = true;
         document.getElementById("codigo_seg").required = true;
         document.getElementById("vencimiento").required = true;
+        document.getElementById("seleccion").innerHTML = "Tarjeta de crédito"
+    });
+    document.getElementById("deposito").addEventListener("click", function () {
+        document.getElementById("nro_cuenta").disabled = false;
+        document.getElementById("nro_cuenta").required = true;
+
+        document.getElementById("nro_tarjeta").disabled = true;
+        document.getElementById("codigo_seg").disabled = true;
+        document.getElementById("vencimiento").disabled = true;
+        document.getElementById("nro_tarjeta").value = "";
+        document.getElementById("codigo_seg").value = "";
+        document.getElementById("vencimiento").value = "";
+        document.getElementById("nro_tarjeta").required = false;
+        document.getElementById("codigo_seg").required = false;
+        document.getElementById("vencimiento").required = false;
+        document.getElementById("seleccion").innerHTML = "Transferencia bancaria"
     });
 
 
 
 });
+
+
+
 
 (() => {
     'use strict'
@@ -166,9 +208,9 @@ document.addEventListener("DOMContentLoaded", function(){
     // Loop over them and prevent submission
     Array.from(forms).forEach(form => {
       form.addEventListener('submit', event => {
-        if (!form.checkValidity()) {
-          event.preventDefault();
-          event.stopPropagation();
+        if (!form.checkValidity() | !modal_valido()) {
+            event.preventDefault();
+            event.stopPropagation();
         }
   
         form.classList.add('was-validated')

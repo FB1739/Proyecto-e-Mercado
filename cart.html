@@ -38,7 +38,7 @@
     </div>
   </nav>
   <main>
-    <form action="#" method="get" class="row mt-4 needs-validation" novalidate id="formulete">
+    <form action="#" method="get" class="row mt-4 needs-validation" novalidate id="formulete" required>
       <div class="container">
         <h1 class="text-center fs-2 p-3">Carrito de compras</h1>
         <div class="row justify-content-md-center">
@@ -137,8 +137,10 @@
             <hr>
             <div>
               <h2 class="fs-3 py-2">Forma de pago</h2>
-              <div class="col-sm-12">
-                <button type="button" class="btn btn-link ps-0" data-bs-toggle="modal" data-bs-target="#modalTerminos"
+
+              <div class="">
+                <p class="fs-6 pt-3 d-inline" id="seleccion">No se ha seleccionado</p>
+                <button type="button" class="btn btn-link px-3 d-inline" data-bs-toggle="modal" data-bs-target="#modalTerminos"
                   id="botonTerminos" required>
                   Forma de pago</button>
                 <div class="invalid-feedback">
@@ -147,7 +149,8 @@
               </div>
               <br>
               <div class="d-flex">
-                <button class="btn btn-primary w-100" type="submit" id="btnSubmit" onClick="">Finalizar Compra</button>
+                <button class="btn btn-primary w-100" type="submit" id="btnSubmit" onSubmit="return modal_valido()">Finalizar
+                  Compra</button>
               </div>
             </div>
 
@@ -180,7 +183,7 @@
         <!-- CUERPO MODAL-->
         <div class="modal-body form-control needs-validation">
           <div class="custom-radio">
-            <input type="radio" name="tipoPago" id="credito" class="form-check-input" >
+            <input type="radio" name="tipoPago" id="credito" class="form-check-input">
             <label class="form-check-label" for="credito">Tarjeta de crédito</label>
             <hr>
             <div class="row">
@@ -217,7 +220,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="nro_cuenta">Número de cuenta</label>
-                <input type="text" class="form-control" id="nro_cuenta" name="nro_cuenta" >
+                <input type="text" class="form-control" id="nro_cuenta" name="nro_cuenta">
                 <div class="invalid-feedback">
                   Debe ingresar una número de cuenta válido
                 </div>
@@ -230,8 +233,8 @@
         <div class="modal-footer">
           <div class="form-check">
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalTerminos"
-            id="botonTerminos2">
-            Cerrar</button>
+              id="botonTerminos2">
+              Cerrar</button>
           </div>
         </div>
 
