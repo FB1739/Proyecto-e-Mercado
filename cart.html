@@ -196,7 +196,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label for="codigo_seg">Código de seguridad</label>
-                <input type="number" class="form-control" id="codigo_seg" name="codigo_seg" minlength="1">
+                <input type="number" class="form-control" id="codigo_seg" name="codigo_seg" minlength="3">
                 <div class="invalid-feedback">
                   Debe ingresar un código de seguridad valido
                 </div>
@@ -205,7 +205,7 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="vencimiento">Vencimiento (MM/AA)</label>
-                <input type="text" class="form-control" id="vencimiento" name="vencimiento" minlength="1">
+                <input type="text" class="form-control" id="vencimiento" name="vencimiento" minlength="5">
                 <div class="invalid-feedback">
                   Debe ingresar una vencimiento válido
                 </div>
@@ -241,6 +241,10 @@
 
       </div>
     </div>
+  </div>
+  <div class="alert alert-success alert-dismissible fade" role="alert" id="alert-success">
+    <p>Se ha realizado la compra con exito!!!!! </p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 
 

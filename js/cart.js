@@ -3,12 +3,39 @@ let entro_articulos = false
 let userid = localStorage.getItem("user_id")
 let dolar = 40
 
-//funcion para comparar JSONs, no me sirve por la cant
+var forma_pago = document.getElementById("seleccion")
+var credito = document.getElementById("credito")
+var deposito = document.getElementById("deposito")
+var nro_cuenta = document.getElementById("nro_cuenta")
+var nro_tarjeta = document.getElementById("nro_tarjeta")
+var codigo_seg = document.getElementById("codigo_seg")
+var vencimiento = document.getElementById("vencimiento")
+var boton_fp = document.getElementById("botonTerminos")
+var alerta_sms = document.getElementById("alert-success")
+var alerta = localStorage.getItem("alerta")
+
+
+
+
+//funcion para comparar JSONs
 var sonIgualesJson = (obj1,obj2)=>{
     keys1 = Object.keys(obj1);
     keys2 = Object.keys(obj2);
     //Object.keys(obj1).every(key => console.log(obj1[key]))
     return keys1.length === keys2.length && obj1["id"] == obj2["id"];
+}
+
+//probando cosas con async y await pero no llegue a lo que queria
+const sleep = async (milliseconds) => {
+    await new Promise(resolve => {
+        return setTimeout(resolve, milliseconds)
+    });
+};
+
+const testSleep = async () => {
+    alerta.classList.add("show")
+    await sleep(1000);
+    alerta.classList.remove("show")
 }
 
 
@@ -19,6 +46,8 @@ function setProdID(id) {
 }
 
 //remover producto
+//no mucho misterio, recorrer el array con antes haber creado una variable auxiliar y que cuando sean iguales los id lo remuevan
+//de la lista de productos y actualice la tabla en pantalla
 function removerProd(id) {
     //let listaCompras = eval(localStorage.getItem("cart_"+userid))
     let j = 0;
@@ -84,6 +113,7 @@ function CantPorPrecio(cantidad,nombre,currency,costo){
     calcular_totales() 
 }
 
+//calcula el subtotal, costo de envio y total de la lista, podria haber usardo compras tambien para hacer lo mismo
 function calcular_totales() {
     var subtotal = 0
     var costo_envio = 0
@@ -108,6 +138,171 @@ function calcular_totales() {
 }
 
 function modal_valido() {
+    
+    //bandera booleana
+    let bandera = false;
+    //entrada de escucha de eventos para cada campo del modal
+    //la idea es que los campos dependiente de cada checkbox modifiquen al padre
+    //siendo asi, con el criterio este, credito tiene que tener los 3 campos llenos para que quede valido
+    //Para Numero de tarjeta    
+    nro_tarjeta.addEventListener("keyup", function() {
+        if (credito.checked && nro_tarjeta.value == "") {
+            nro_tarjeta.classList.remove("is-valid")
+            nro_tarjeta.classList.add("is-invalid")
+        }
+        else {
+            nro_tarjeta.classList.remove("is-invalid")
+            nro_tarjeta.classList.add("is-valid")
+        }
+        if (credito.checked && (vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")){
+            credito.classList.add("is-invalid")
+            credito.classList.remove("is-valid")
+        }
+        if (credito.checked && !(vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")){
+            credito.classList.add("is-valid")
+            credito.classList.remove("is-invalid")
+        }
+    })
+    //Codigo de seguridad
+    codigo_seg.addEventListener("keyup", function() {
+        if (credito.checked && codigo_seg.value == "") {
+            codigo_seg.classList.remove("is-valid")
+            codigo_seg.classList.add("is-invalid")
+        }
+        else {
+            codigo_seg.classList.remove("is-invalid")
+            codigo_seg.classList.add("is-valid")
+        }
+        if (credito.checked && (vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")){
+            credito.classList.add("is-invalid")
+            credito.classList.remove("is-valid")
+        }
+        if (credito.checked && !(vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")){
+            credito.classList.add("is-valid")
+            credito.classList.remove("is-invalid")
+        }
+    })
+    //Vencimiento
+    vencimiento.addEventListener("keyup", function() {
+        if (credito.checked && vencimiento.value == "") {
+            vencimiento.classList.remove("is-valid")
+            vencimiento.classList.add("is-invalid")
+        }
+        else {
+            vencimiento.classList.remove("is-invalid")
+            vencimiento.classList.add("is-valid")
+        }
+        if (credito.checked && (vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")){
+            credito.classList.add("is-invalid")
+            credito.classList.remove("is-valid")
+        }
+        if (credito.checked && !(vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")){
+            credito.classList.add("is-valid")
+            credito.classList.remove("is-invalid")
+            forma_pago.classList.add("is-valid")
+            forma_pago.classList.remove("is-invalid")
+        }
+    })
+    //Numero de cuenta
+    nro_cuenta.addEventListener("keyup", function() {
+        if (deposito.checked && nro_cuenta.value == "") {
+            nro_cuenta.classList.remove("is-valid")
+            nro_cuenta.classList.add("is-invalid")
+            deposito.classList.add("is-invalid")
+            deposito.classList.remove("is-valid")
+        }
+        else {
+            nro_cuenta.classList.remove("is-invalid")
+            nro_cuenta.classList.add("is-valid")
+            deposito.classList.remove("is-invalid")
+            deposito.classList.add("is-valid")
+            forma_pago.classList.add("is-valid")
+            forma_pago.classList.remove("is-invalid")
+        }
+    })
+    //Parte para los checkboxes
+    //Deposito
+    /*
+    deposito.addEventListener("click", function() {
+        if (deposito.checked && (nro_cuenta.value == "")){
+            deposito.classList.add("is-invalid")
+            deposito.classList.remove("is-valid")
+            credito.classList.remove("is-valid")
+            credito.classList.remove("is-invalid")
+        }
+        else {
+            deposito.classList.remove("is-invalid")
+            deposito.classList.add("is-valid")
+            credito.classList.remove("is-valid")
+            credito.classList.remove("is-invalid")
+        }
+    })
+    //Credito
+    credito.addEventListener("click",function(){
+        if(credito.checked && (vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")){
+            credito.classList.add("is-invalid")
+            credito.classList.remove("is-valid")
+            deposito.classList.remove("is-valid")
+            deposito.classList.remove("is-invalid")
+        }
+        if(credito.checked && !(vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")) {
+            credito.classList.add("is-valid")
+            credito.classList.remove("is-invalid")
+            deposito.classList.remove("is-valid")
+            deposito.classList.remove("is-invalid")
+        }
+    })*/
+
+    boton_fp.addEventListener("click", function(){
+        //Si credito esta checkeado y alguno de los campos esta vacios O si deposito esta checkeado y el nro de cuenta esta vacio
+        if ((credito.checked && !(vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")) || (deposito.checked & nro_cuenta.value != "")){
+            forma_pago.classList.add("is-valid")
+            forma_pago.classList.remove("is-invalid")
+            bandera = true
+        }
+        else {
+            forma_pago.classList.add("is-invalid")
+            forma_pago.classList.remove("is-valid")
+            bandera = false
+        }
+
+    })
+    
+    
+    if (credito.checked) {
+        if (!(vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "")) {
+            bandera = true
+            //console.log("paso por if credito checked")
+            forma_pago.classList.add("is-valid")
+            forma_pago.classList.remove("is-invalid")
+            credito.classList.add("is-valid")
+            credito.classList.remove("is-invalid")
+            
+        }
+    }
+
+
+    if (deposito.checked & nro_cuenta.value != "") {        
+        bandera = true
+        //console.log("paso por if deposito checked")
+        forma_pago.classList.add("is-valid")
+        forma_pago.classList.remove("is-invalid")
+        deposito.classList.add("is-valid")
+        deposito.classList.remove("is-invalid")
+        
+    }
+    if (!bandera) {
+        forma_pago.classList.add("is-invalid")
+        forma_pago.classList.remove("is-valid")
+    }
+    //console.log("bandera:")
+    //console.log(bandera)*/
+    return bandera
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function(){
     var forma_pago = document.getElementById("seleccion")
     var credito = document.getElementById("credito")
     var deposito = document.getElementById("deposito")
@@ -115,46 +310,7 @@ function modal_valido() {
     var nro_tarjeta = document.getElementById("nro_tarjeta")
     var codigo_seg = document.getElementById("codigo_seg")
     var vencimiento = document.getElementById("vencimiento")
-    /*console.log(credito.checked)
-    console.log(deposito.checked)
-    console.log(nro_tarjeta.value)
-    console.log(codigo_seg.value)
-    console.log(vencimiento.value)*/
-    let bandera = false;
-    forma_pago.addEventListener("click", function(){
-        
-    })
-
-    if (credito.checked) {
-        if (vencimiento.value == "" | nro_tarjeta.value == "" | codigo_seg.value == "") {
-            bandera = true
-            //console.log("paso por if credito checked")
-            forma_pago.classList.add("is-valid")
-            
-        }
-        else {
-        if (vencimiento.value == "") {
-            vencimiento.addEventListener()
-        }
-    }
-
-    }
-    if (deposito.checked & nro_cuenta.value != "") {        
-        bandera = true
-        //console.log("paso por if deposito checked")
-        forma_pago.classList.add("is-valid")
-    }
-    if (!bandera) {
-        forma_pago.classList.add("is-invalid")
-    }
-    //console.log("bandera:")
-    //console.log(bandera)
-    return bandera
-}
-
-
-
-document.addEventListener("DOMContentLoaded", function(){
+    var boton_fp = document.getElementById("botonTerminos")
     //no mucho misterio aca, repetimos los que hicimos anteriormente en las otras entregas
     getJSONData(CART_INFO_URL + localStorage.getItem("user_id") + ".json").then(function (resultObj) {//CART_INFO_URL en init.js
         if (resultObj.status === "ok") {
@@ -197,33 +353,49 @@ document.addEventListener("DOMContentLoaded", function(){
             calcular_totales()
         }
     });
+    //si se checkea uno se borra lo del otro y sus campos hijas
+    //capaz hay una mejor forma de hacerlo en vez de esta chanchada pero bue
     document.getElementById("credito").addEventListener("click", function () {
-        document.getElementById("nro_cuenta").disabled = true;
-        document.getElementById("nro_cuenta").value = "";
-        document.getElementById("nro_cuenta").required = false;
+        
+        nro_cuenta.disabled = true;
+        nro_cuenta.value = "";
+        nro_cuenta.required = false;
+        deposito.classList.remove("is-valid")
+        deposito.classList.remove("is-invalid")
+        nro_cuenta.classList.remove("is-valid")
+        nro_cuenta.classList.remove("is-invalid")
 
-        document.getElementById("nro_tarjeta").disabled = false;
-        document.getElementById("codigo_seg").disabled = false;
-        document.getElementById("vencimiento").disabled = false;
-        document.getElementById("nro_tarjeta").required = true;
-        document.getElementById("codigo_seg").required = true;
-        document.getElementById("vencimiento").required = true;
-        document.getElementById("seleccion").innerHTML = "Tarjeta de crédito"
+        nro_tarjeta.disabled = false;
+        codigo_seg.disabled = false;
+        vencimiento.disabled = false;
+        nro_tarjeta.required = true;
+        codigo_seg.required = true;
+        vencimiento.required = true;
+        forma_pago.innerHTML = "Tarjeta de crédito"
     });
     document.getElementById("deposito").addEventListener("click", function () {
-        document.getElementById("nro_cuenta").disabled = false;
-        document.getElementById("nro_cuenta").required = true;
-
-        document.getElementById("nro_tarjeta").disabled = true;
-        document.getElementById("codigo_seg").disabled = true;
-        document.getElementById("vencimiento").disabled = true;
-        document.getElementById("nro_tarjeta").value = "";
-        document.getElementById("codigo_seg").value = "";
-        document.getElementById("vencimiento").value = "";
-        document.getElementById("nro_tarjeta").required = false;
-        document.getElementById("codigo_seg").required = false;
-        document.getElementById("vencimiento").required = false;
-        document.getElementById("seleccion").innerHTML = "Transferencia bancaria"
+        nro_cuenta.disabled = false;
+        nro_cuenta.required = true;
+        
+        
+        credito.classList.remove("is-valid")
+        credito.classList.remove("is-invalid")
+        nro_tarjeta.classList.remove("is-valid")
+        nro_tarjeta.classList.remove("is-invalid")
+        codigo_seg.classList.remove("is-valid")
+        codigo_seg.classList.remove("is-invalid")
+        vencimiento.classList.remove("is-valid")
+        vencimiento.classList.remove("is-invalid")
+        nro_tarjeta.disabled = true;
+        codigo_seg.disabled = true;
+        vencimiento.disabled = true;
+        nro_tarjeta.value = "";
+        codigo_seg.value = "";
+        vencimiento.value = "";
+        nro_tarjeta.required = false;
+        codigo_seg.required = false;
+        vencimiento.required = false;
+        forma_pago.innerHTML = "Transferencia bancaria"
     });
 
 
@@ -231,8 +403,14 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 
 
+//mostrar alerta e inicializar la nueva alerta del carrito 
+if(alerta == "true"){
+    alerta_sms.classList.add("show")
+    localStorage.setItem("alerta","false")
+}
+localStorage.setItem("alerta","false");
 
-
+//cosa de bootstrap
 (() => {
     'use strict'
   
@@ -242,11 +420,16 @@ document.addEventListener("DOMContentLoaded", function(){
     // Loop over them and prevent submission
     Array.from(forms).forEach(form => {
       form.addEventListener('submit', event => {
+        modal_valido()
         if (!form.checkValidity() | !modal_valido()) {
             event.preventDefault();
             event.stopPropagation();
         }
-  
+        else{
+            localStorage.setItem("alerta","true")
+            //console.log("paso por aca")
+        }
+        //alerta.classList.remove("show")
         form.classList.add('was-validated')
       }, false)
     })
