@@ -52,8 +52,51 @@
   </nav>
   <main>
     <div class="container">
-      <div class="alert alert-danger text-center" role="alert">
-        <h4 class="alert-heading">Funcionalidad en desarrollo</h4>
+      <div class="row justify-content-md-center">
+        <div class="col-md-8">
+          <h2 class="fs-2 pb-4 pt-3">Perfil</h2>
+          <hr>
+          <div class="row justify-content-md-center mb-5">
+            <div class="col-md-6 mb-3">
+              <label for="nombreCalle">Nombre</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" required>
+              <div class="invalid-feedback">
+                Debe ingresar un nombre válido
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="Numero">Segundo Nombre</label>
+              <input type="text" class="form-control" id="segundo_nombre" name="segundo_nombre">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="esquinaNombre">Apellido</label>
+              <input type="text" class="form-control" id="apellido" name="apellido" required>
+              <div class="invalid-feedback">
+                Debe ingresar un apellido válido
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="nombreCalle">Segundo Apellido</label>
+              <input type="text" class="form-control" id="segundo_apellido" name="segundo_apellido">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="Numero">E-mail</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+              <div class="invalid-feedback">
+                Debe ingresar un email valido
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="esquinaNombre">Teléfono de contacto</label>
+              <input type="text" class="form-control" id="telefono" name="telefono">
+            </div>
+          </div>
+          
+          <div class="pt-5">
+            <hr>
+          </div>
+          <button class="btn btn-primary" id="guardarCambios" onClick="guardarDatos()">Guardar cambios</button>
+        </div>
       </div>
     </div>
   </main>

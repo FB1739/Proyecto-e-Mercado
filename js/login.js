@@ -25,7 +25,9 @@ function handleCredentialResponse(response) {
     console.log("Image URL: " + responsePayload.picture);
     console.log("Email: " + responsePayload.email);*/
     localStorage.setItem("user",responsePayload.email)
+    localStorage.setItem("user_id","25801")
     location.href = "index.html";
+    
     
 
 }
