@@ -11,7 +11,8 @@
   <link href="css/styles.css" rel="stylesheet">
 
   <meta name="google-signin-scope" content="profile email" />
-  <meta name="google-signin-client_id" content="1019223786709-evsio6865hmmiv0qocj1p7nktdp40dgi.apps.googleusercontent.com">
+  <meta name="google-signin-client_id"
+    content="1019223786709-evsio6865hmmiv0qocj1p7nktdp40dgi.apps.googleusercontent.com">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 
@@ -33,18 +34,24 @@
       <h1 class="mb-3">Inicio de sesión</h1>
       <hr class="my-4">
       <div class="row g-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="Email" pattern="^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$" required>
-        <label for="password1" class="form-label">Contraseña</label>
-        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
-        <button class="btn btn-primary" type="button" id="regBtn">Ingresar</button>
-      </div><br>
-      
-        
-        <div id="g_id_onload" data-client_id="1019223786709-evsio6865hmmiv0qocj1p7nktdp40dgi.apps.googleusercontent.com" data-callback="handleCredentialResponse">
+        <div>
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Email" required>
         </div>
-        <div class="g_id_signin" data-type="standard"></div>
-      
+        <div>
+          <label for="password1" class="form-label">Contraseña</label>
+          <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+        </div>
+        <button class="btn btn-primary" type="button" id="regBtn">Ingresar</button>
+      </div>
+      <br>
+
+
+      <div id="g_id_onload" data-client_id="1019223786709-evsio6865hmmiv0qocj1p7nktdp40dgi.apps.googleusercontent.com"
+        data-callback="handleCredentialResponse">
+      </div>
+      <div class="g_id_signin" data-type="standard"></div>
+
     </div>
 
 
@@ -60,11 +67,6 @@
       <p>Clickea <a target="_blank" href="Letra.pdf">aquí</a> para descargar la letra del obligatorio.</p>
     </div>
   </footer>
-  <!-- esta parte sirve para mostrar que el falta algo en los campos, el id alert-danger esta ingresado en bootstrap.min.css-->
-  <div class="alert alert-danger alert-dismissible fade" role="alert" id="alert-danger">
-    <p>No se ha ingresado un Email y/o Contraseña</p>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
   <script src="js/login.js"></script>
   <script>
     function onSuccess(googleUser) {
@@ -85,7 +87,7 @@
       });
     }
   </script>
-  
+
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 </body>
 

@@ -39,27 +39,27 @@ function setProdID(id) {
 
 
 //Modifico el codigo de esta funcion para que sea un poco más eficiente
-function showCategoriesList() {
+function showProductsList() {
     let htmlContentToAppend = "";
-    for (let i = 0; i < productsArray.length; i++) {// se puede hacer tambien un for (let category of array),
-        let category = productsArray[i];            //  pero me gusta mas parecido a c++
+    for (let i = 0; i < productsArray.length; i++) {// se puede hacer tambien un for (let prod of array),
+        let prod = productsArray[i];            //  pero me gusta mas parecido a c++
 
-        //console.log(category)
-        if (((minCount == undefined) || (minCount != undefined && parseInt(category.cost) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(category.cost) <= maxCount))) {
+        //console.log(prod)
+        if (((minCount == undefined) || (minCount != undefined && parseInt(prod.cost) >= minCount)) &&
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(prod.cost) <= maxCount))) {
 
             htmlContentToAppend += `
-                <div onclick="setProdID(${category.id})" class="list-group-item list-group-item-action cursor-active">
+                <div onclick="setProdID(${prod.id})" class="list-group-item list-group-item-action cursor-active">
                     <div class="row">
                         <div class="col-3">
-                            <img src="${category.image}" alt="${category.description}" class="img-thumbnail">
+                            <img src="${prod.image}" alt="${prod.description}" class="img-thumbnail">
                         </div>
                         <div class="col">
                             <div class="d-flex w-100 justify-content-between">
-                                <h4 class="mb-1">${category.name} - ${category.currency} ${category.cost}</h4>
-                                <small class="text-muted">${category.soldCount} vendidos</small>
+                                <h4 class="mb-1">${prod.name} - ${prod.currency} ${prod.cost}</h4>
+                                <small class="text-muted">${prod.soldCount} vendidos</small>
                             </div>
-                            <p>${category.description}</p>
+                            <p>${prod.description}</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +69,7 @@ function showCategoriesList() {
     document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
 }
 
-function sortCategories(criteria, array) {
+function sortProducts(criteria, array) {
     let result = [];
     if (criteria === ORDER_ASC_BY_PRICE) {
         result = array.sort(function (a, b) {
@@ -101,17 +101,17 @@ function sortCategories(criteria, array) {
 
 
 
-function sortAndShowCategories(sortCriteria, categoriesArray) {
+function sortAndShowProducts(sortCriteria, prodArray) {
     currentSortCriteria = sortCriteria;
 
-    if (categoriesArray != undefined) {
-        productsArray = categoriesArray;
+    if (prodArray != undefined) {
+        productsArray = prodArray;
     }
 
-    productsArray = sortCategories(currentSortCriteria, productsArray);
+    productsArray = sortProducts(currentSortCriteria, productsArray);
 
     //Muestro las categorías ordenadas
-    showCategoriesList();
+    showProductsList();
 }
 
 // se cambio el entrada del link en getJSONData para que sea con PRODUCTS_URL con el catID en el localStorage
@@ -119,20 +119,20 @@ document.addEventListener("DOMContentLoaded", function (e) {
     getJSONData(PRODUCTS_URL + localStorage.getItem("catID") + ".json").then(function (resultObj) {//PRODUCTS_URL en init.js
         if (resultObj.status === "ok") {
             productsArray = resultObj.data.products;
-            showCategoriesList();
+            showProductsList();
         }
     });
 
     document.getElementById("sortAsc").addEventListener("click", function () {
-        sortAndShowCategories(ORDER_ASC_BY_PRICE);
+        sortAndShowProducts(ORDER_ASC_BY_PRICE);
     });
 
     document.getElementById("sortDesc").addEventListener("click", function () {
-        sortAndShowCategories(ORDER_DESC_BY_PRICE);
+        sortAndShowProducts(ORDER_DESC_BY_PRICE);
     });
 
     document.getElementById("sortByPrice").addEventListener("click", function () {
-        sortAndShowCategories(ORDER_BY_PROD_SOLD);
+        sortAndShowProducts(ORDER_BY_PROD_SOLD);
     });
 
     document.getElementById("clearRangeFilter").addEventListener("click", function () {
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
         minCount = undefined;
         maxCount = undefined;
 
-        showCategoriesList();
+        showProductsList();
     });
 
     document.getElementById("rangeFilterCount").addEventListener("click", function () {
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
             maxCount = undefined;
         }
 
-        showCategoriesList();
+        showProductsList();
     });
 
     document.getElementById("search").addEventListener("keyup", function () {

@@ -7,6 +7,8 @@ const CART_INFO_URL = "https://japceibal.github.io/emercado-api/user_cart/";
 const CART_BUY_URL = "https://japceibal.github.io/emercado-api/cart/buy.json";
 const EXT_TYPE = ".json";
 
+let usuario = ""
+
 let showSpinner = function(){
   document.getElementById("spinner-wrapper").style.display = "block";
 }
@@ -46,7 +48,15 @@ let getJSONData = function(url){
 }
 
 if (!localStorage.getItem("user")){
-  window.location = "login.html"
+  //window.location = "login.html"
+}
+else {
+  usuario = localStorage.getItem("user")
+}
+
+
+if (!localStorage.getItem("users")){
+  localStorage.setItem("users","[]")
 }
 
 
@@ -63,7 +73,7 @@ document.getElementById("navbarNav").innerHTML = `
   </li>
   <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            ${localStorage.getItem("user")}
+            ${usuario}
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
             <li><a class="dropdown-item" href="cart.html">Mi Carrito</a></li>

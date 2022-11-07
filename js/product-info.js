@@ -92,7 +92,7 @@ function agregar_comentario(comentario, puntuacion) {
 
 }
 
-function showCategoriesList() {
+function showProductInfo() {
     let htmlContentToAppend = "";
     let comContentToAppend = "";
     let relContentToAppend = "";
@@ -229,7 +229,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
                     commArr = result.data;
                     //console.log(prodDict)
                     //console.log(commArr)
-                    showCategoriesList();
+                    showProductInfo();
                 }
             })
         }
