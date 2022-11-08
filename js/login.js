@@ -7,9 +7,13 @@ function pag() {
     }
 }
 
-function crearUsuario(mail) {
+if (!localStorage.getItem("users")) {
+    localStorage.setItem("users", "[]")
+}
+
+function crearUsuario(email) {
     let usuario = {}
-    usuario.mail = mail
+    usuario.email = email
     return usuario;
 }
   

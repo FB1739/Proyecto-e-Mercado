@@ -2,14 +2,19 @@ let user = localStorage.getItem("user")
 let nombre = document.getElementById("nombre")
 let apellido = document.getElementById("apellido")
 let email = document.getElementById("email")
-let nombre = document.getElementById("nombre")
-let nombre = document.getElementById("nombre")
-let nombre = document.getElementById("nombre")
-let nombre = document.getElementById("nombre")
+let nom2 = document.getElementById("segundo_nombre")
+let ap2 = document.getElementById("segundo_apellido")
+let tel = document.getElementById("telefono")
+let imag = document.getElementById("img")
 
-if(!localStorage.getItem("user")){
-    localStorage.setItem("pag","my-profile.html")
-    location.href = "login.html"
+function obtenerDatos(user) {
+    let usuarios = eval(localStorage.getItem("users"))
+    for (let i = 0; i < usuarios.length; i++) {
+        if(usuarios[i].email == user.email){
+            return usuarios[i]
+        }
+    }
+    return undefined
 }
 
 

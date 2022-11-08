@@ -48,10 +48,13 @@ let getJSONData = function(url){
 }
 
 if (!localStorage.getItem("user")){
-  //window.location = "login.html"
+  window.location = "login.html"
 }
 else {
   usuario = localStorage.getItem("user")
+  var path = window.location.pathname;
+  var page = path.split("/").pop();
+  localStorage.setItem("pag",page)
 }
 
 
