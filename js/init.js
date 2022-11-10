@@ -19,7 +19,14 @@ let hideSpinner = function(){
 
 function clearUser() {
   localStorage.removeItem("user");
-  window.location = "index.html"
+  var path = window.location.pathname;
+  var page = path.split("/").pop();
+  if (page == "my-profile.html") {
+    localStorage.setItem("pag", page)
+    window.location.href = "login.html"
+  } else {
+    window.location.href = page
+  }
 }
 
 let getJSONData = function(url){
@@ -48,7 +55,11 @@ let getJSONData = function(url){
 }
 
 if (!localStorage.getItem("user")){
-  window.location = "login.html"
+  var path = window.location.pathname;
+  var page = path.split("/").pop();
+  if (page == "my-profile.html") {
+    localStorage.setItem("pag", page)
+    window.location.href = "login.html"}
 }
 else {
   usuario = localStorage.getItem("user")

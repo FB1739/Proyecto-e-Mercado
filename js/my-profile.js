@@ -20,7 +20,18 @@ class Cuenta {
     }
 }
 
-
+function ValidarMail(mail) {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value)) {
+        mail.classList.add("is-valid")
+        mail.classList.remove("is-invalid")
+        return (true)
+    }
+    else {
+        mail.classList.remove("is-valid")
+        mail.classList.add("is-invalid")
+        return (false)
+    }
+}
 
 //obtener el usuario si existe
 function obtenerDatos(user) {
@@ -42,7 +53,7 @@ function guardarCambios() {
     console.log(nombre())
     console.log(apellido())
     console.log(email())
-    if (nombre != "" && apellido != "" && email != "") {
+    if (nombre() != "" && apellido() != "" && (email() != "" || !ValidarMail(document.getElementById("email")))) {
         var perfil = new Cuenta(email(), nombre(), nom2(), apellido(), ap2(), tel(), imag())
         let usuarios = eval(localStorage.getItem("users"))
         console.log(perfil)
@@ -54,29 +65,29 @@ function guardarCambios() {
                 console.log(usuarios)
                 localStorage.setItem("users", JSON.stringify(usuarios))
                 localStorage.setItem("user",email())
-                window.location.href = "my-profile.html"
+                //window.location.href = "my-profile.html"
                 alert("Cambios guardados con exito!")
                 break
             }
         }
     }
     else {
-        alert("Hubo un problema X.X")
-        if (nombre == ""){
+        //alert("Hubo un problema X.X")
+        if (nombre() == ""){
             document.getElementById("nombre").classList.remove("is-valid")
             document.getElementById("nombre").classList.add("is-invalid")
         }
-        if (apellido == ""){
+        if (apellido() == ""){
             document.getElementById("apellido").classList.remove("is-valid")
             document.getElementById("apellido").classList.add("is-invalid")
         }
-        if (email == ""){
+        if (email() == "" || !ValidarMail(document.getElementById("email"))){
             document.getElementById("email").classList.remove("is-valid")
             document.getElementById("email").classList.add("is-invalid")
         }
         
         document.getElementById("nombre").addEventListener("keyup", function() {
-            if (nombre == ""){
+            if (nombre() == ""){
                 document.getElementById("nombre").classList.remove("is-valid")
                 document.getElementById("nombre").classList.add("is-invalid")
             }
@@ -87,7 +98,7 @@ function guardarCambios() {
         })
 
         document.getElementById("apellido").addEventListener("keyup", function() {
-            if (apellido == ""){
+            if (apellido() == ""){
                 document.getElementById("apellido").classList.remove("is-valid")
                 document.getElementById("apellido").classList.add("is-invalid")
             }
@@ -98,7 +109,7 @@ function guardarCambios() {
         })
 
         document.getElementById("email").addEventListener("keyup", function() {
-            if (email == ""){
+            if (email() == "" || !ValidarMail(document.getElementById("email"))){
                 document.getElementById("email").classList.remove("is-valid")
                 document.getElementById("email").classList.add("is-invalid")
             }
@@ -120,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (usuario != undefined) {
         for (let keys in usuario) {
-            console.log(usuario[keys])
-            console.log(keys)
+            //console.log(usuario[keys])
+            //console.log(keys)
             document.getElementById(keys).value = usuario[keys]
         }
     }
