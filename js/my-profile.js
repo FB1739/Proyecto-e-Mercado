@@ -5,7 +5,7 @@ function email() {return document.getElementById("email").value}
 function nom2() {return document.getElementById("nombre2").value}
 function ap2() {return document.getElementById("apellido2").value}
 function tel() {return document.getElementById("telefono").value}
-function imag() {return document.getElementById("img").value}
+function imag() {return localStorage.getItem("imagen")}
 
 //vamos a probar las clases en js
 class Cuenta {
@@ -19,6 +19,26 @@ class Cuenta {
         this.img = img
     }
 }
+
+function readFile(input) {
+    let file = input.files[0];
+    let hola = ""
+    let reader = new FileReader();
+  
+    reader.readAsDataURL(file);
+    
+    reader.onload = function() {
+        //console.log(reader.result);
+        localStorage.setItem("imagen",reader.result)
+        hola = reader.result
+    };
+  
+    reader.onerror = function() {
+      console.log(reader.error);
+    };
+    console.log(hola)
+    return hola
+  }
 
 function ValidarMail(mail) {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail.value)) {
@@ -50,19 +70,21 @@ function obtenerDatos(user) {
 
 //guardar datos
 function guardarCambios() {
-    console.log(nombre())
-    console.log(apellido())
-    console.log(email())
+    //console.log(nombre())
+    //console.log(apellido())
+    //console.log(email())
     if (nombre() != "" && apellido() != "" && (email() != "" || !ValidarMail(document.getElementById("email")))) {
         var perfil = new Cuenta(email(), nombre(), nom2(), apellido(), ap2(), tel(), imag())
+        //console.log(imag())
         let usuarios = eval(localStorage.getItem("users"))
-        console.log(perfil)
-        console.log(usuarios)
+        localStorage.removeItem("imagen")
+        //console.log(perfil)
+        //console.log(usuarios)
         for (let i = 0; i < usuarios.length; i++) {
             if (usuarios[i].email == user) {
                 usuarios[i] = perfil
-                console.log("entro pa")
-                console.log(usuarios)
+                //console.log("entro pa")
+                //console.log(usuarios)
                 localStorage.setItem("users", JSON.stringify(usuarios))
                 localStorage.setItem("user",email())
                 //window.location.href = "my-profile.html"
@@ -133,7 +155,18 @@ document.addEventListener("DOMContentLoaded", function () {
         for (let keys in usuario) {
             //console.log(usuario[keys])
             //console.log(keys)
-            document.getElementById(keys).value = usuario[keys]
+            if (keys != "img"){
+                document.getElementById(keys).value = usuario[keys] 
+            }
+            else {
+                if (usuario[keys] != "" && usuario[keys] != null && usuario[keys] != undefined) {
+                    document.getElementById("imgPerfil").src = usuario[keys]
+                }
+            }
         }
     }
+
+    document.getElementById("img").addEventListener("change", () =>{
+        document.getElementById("imgPerfil").src = imag()
+    })
 })

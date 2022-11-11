@@ -54,7 +54,10 @@
     <div class="container">
       <div class="row justify-content-md-center">
         <div class="col-md-8">
-          <h2 class="fs-2 pb-4 pt-3">Perfil</h2>
+          <div class="col-12 d-flex w-100 justify-content-between">
+            <h2 class="fs-2 pb-4 pt-3">Perfil</h2>
+            <img src="img/img_perfil.png" alt="imagen de perfil" class="" height="100 px" id="imgPerfil">
+          </div>
           <hr>
           <div class="row justify-content-md-left mb-3">
             <div class="col-md-6 mb-3">
@@ -81,7 +84,8 @@
             </div>
             <div class="col-md-6 mb-3">
               <label for="email">E-mail</label>
-              <input type="email" class="form-control" id="email" name="email" required pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
+              <input type="email" class="form-control" id="email" name="email" required
+                pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/">
               <div class="invalid-feedback">
                 Debe ingresar un email válido
               </div>
@@ -92,10 +96,10 @@
             </div>
             <div class="col-md-6 ">
               <label for="img">Imagen de perfil</label>
-              <input type="file" class="form-control " id="img" name="img">
+              <input type="file" class="form-control " id="img" name="img" onChange="readFile(this)">
             </div>
           </div>
-          
+
           <div class="pt-1">
             <hr>
           </div>
