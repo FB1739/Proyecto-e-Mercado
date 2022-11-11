@@ -77,7 +77,7 @@ function guardarCambios() {
         var perfil = new Cuenta(email(), nombre(), nom2(), apellido(), ap2(), tel(), imag())
         //console.log(imag())
         let usuarios = eval(localStorage.getItem("users"))
-        localStorage.removeItem("imagen")
+        //localStorage.removeItem("imagen")
         //console.log(perfil)
         //console.log(usuarios)
         for (let i = 0; i < usuarios.length; i++) {
@@ -87,7 +87,7 @@ function guardarCambios() {
                 //console.log(usuarios)
                 localStorage.setItem("users", JSON.stringify(usuarios))
                 localStorage.setItem("user",email())
-                //window.location.href = "my-profile.html"
+                window.location.href = "my-profile.html"
                 alert("Cambios guardados con exito!")
                 break
             }
