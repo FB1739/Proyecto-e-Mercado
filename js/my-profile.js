@@ -37,7 +37,7 @@ function readFile(input) {
       console.log(reader.error);
     };
     console.log(hola)
-    return hola
+    //return hola
   }
 
 function ValidarMail(mail) {
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    document.getElementById("img").addEventListener("change", () =>{
+    document.getElementById("img").addEventListener("load", () =>{
         document.getElementById("imgPerfil").src = imag()
     })
 })
